@@ -24,5 +24,5 @@ USER node
 CMD ["n8n"]
 
 # Ensure the footage directory exists and copy the files into it
-RUN mkdir -p /data/footage
-COPY ./footage/data/footage /data/footage
+RUN mkdir -p ${FOOTAGE_DIR}
+COPY ./footage/data/footage ${FOOTAGE_DIR}
