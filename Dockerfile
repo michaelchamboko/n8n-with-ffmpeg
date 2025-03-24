@@ -23,4 +23,4 @@ USER node
 CMD ["n8n"]
 
 # Copy the footage directory to the correct path in the container
-COPY ./footage/data/footage
+COPY ./footage/data/footage /data/footage
