@@ -16,9 +16,8 @@ WORKDIR /data
 # Expose the default n8n port
 EXPOSE 5678
 
-# Copy the entire "footage" directory into the container at /data/footage
-# Ensure that the local "footage" directory exists and is in the build context.
-COPY footage /data/footage
+# Manually create the 'footage' directory and a test file within it
+RUN mkdir -p /data/footage && echo "This is a test file" > /data/footage/test.txt
 
 # Switch back to a non-root user for security
 USER node
