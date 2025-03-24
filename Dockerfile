@@ -29,3 +29,6 @@ USER node
 
 # Start n8n when the container launches
 CMD ["n8n"]
+
+# Copy cookies.txt into /data
+COPY ./credentials/cookies.txt /data/cookies.txt
