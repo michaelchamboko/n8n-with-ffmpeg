@@ -1,29 +1,28 @@
 FROM node:18-slim
 
-# Switch to root
+# Switch to root to install system dependencies
 USER root
 
-# Install dependencies (ffmpeg, python3, pip, fonts, etc.)
 RUN apt-get update && apt-get install -y \
-    ffmpeg \
     python3 \
     python3-pip \
+    python3-venv \
+    ffmpeg \
     fonts-noto
 
-# Install yt-dlp via pip
-RUN pip3 install yt-dlp
+# Create a virtual environment
+RUN python3 -m venv /venv
+
+# Activate the venv and install yt-dlp inside it
+RUN /venv/bin/pip install yt-dlp
+
+# Make yt-dlp accessible in the PATH
+ENV PATH="/venv/bin:$PATH"
 
 # Install n8n
 RUN npm install -g n8n@latest
 
-# Create a working directory
 WORKDIR /data
-
-# Expose n8n port
 EXPOSE 5678
-
-# Switch back to non-root user
 USER node
-
-# Start n8n
 CMD ["n8n"]
