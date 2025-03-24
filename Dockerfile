@@ -13,10 +13,9 @@ RUN python3 -m venv /venv && /venv/bin/pip install yt-dlp
 # Add the virtual environment's bin directory to the PATH so yt-dlp is available globally
 ENV PATH="/venv/bin:$PATH"
 
-# (Optional) Copy cookies.txt into the container if you plan to use cookies for yt-dlp.
-# Ensure you have a valid cookies file in a local folder called "credentials" at the root of your project.
-# If not needed, you can comment out or remove the following line.
-COPY ./credentials/cookies.txt /data/cookies.txt
+# (Optional) If you need cookies, copy cookies.txt from your local project.
+# If not, you can comment out the following line.
+# COPY ./credentials/cookies.txt /data/cookies.txt
 
 # Install n8n globally via npm
 RUN npm install -g n8n@latest
@@ -35,4 +34,3 @@ USER node
 
 # Start n8n when the container launches
 CMD ["n8n"]
-
