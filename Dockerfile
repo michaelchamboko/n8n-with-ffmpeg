@@ -1,26 +1,29 @@
-# Use Node 18 with Debian Slim as the base image
 FROM node:18-slim
 
-# Switch to root to install system dependencies
+# Switch to root
 USER root
 
-# Update package lists and install FFmpeg and fonts
-RUN apt-get update && apt-get install -y ffmpeg fonts-noto
+# Install dependencies (ffmpeg, python3, pip, fonts, etc.)
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    python3 \
+    python3-pip \
+    fonts-noto
 
-# Install n8n globally via npm
+# Install yt-dlp via pip
+RUN pip3 install yt-dlp
+
+# Install n8n
 RUN npm install -g n8n@latest
 
-# Create a working directory for n8n data
+# Create a working directory
 WORKDIR /data
 
-# Expose the default n8n port
+# Expose n8n port
 EXPOSE 5678
 
-# Manually create the 'footage' directory and a test file within it
-RUN mkdir -p /data/footage && echo "This is a test file" > /data/footage/test.txt
-
-# Switch back to a non-root user for security
+# Switch back to non-root user
 USER node
 
-# Start n8n when the container launches
+# Start n8n
 CMD ["n8n"]
