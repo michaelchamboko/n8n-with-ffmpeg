@@ -4,8 +4,8 @@ FROM node:18-alpine
 # Switch to root to install system dependencies
 USER root
 
-# Update apk and install FFmpeg
-RUN apk update && apk add --no-cache ffmpeg
+# Update apk and install FFmpeg and the required fonts
+RUN apk update && apk add --no-cache ffmpeg fontconfig ttf-dejavu
 
 # Install n8n globally via npm
 RUN npm install -g n8n@latest
@@ -21,5 +21,3 @@ USER node
 
 # Start n8n when the container launches
 CMD ["n8n"]
-
-RUN apt-get update && apt-get install -y fonts-noto
