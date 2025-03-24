@@ -22,5 +22,6 @@ USER node
 # Start n8n when the container launches
 CMD ["n8n"]
 
-# Copy the footage directory to the correct path in the container
+# Ensure the footage directory exists in the container and copy the files to it
+RUN mkdir -p /data/footage  # Create the destination directory in the container
 COPY ./footage/data/footage /data/footage
