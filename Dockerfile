@@ -1,11 +1,12 @@
-FROM node:18-alpine
+# Use Node 18 with Debian Slim as the base image
+FROM node:18-slim
 
 # Switch to root to install system dependencies
 USER root
 
 # Install FFmpeg and fonts
-RUN apk update && apk add --no-cache ffmpeg
-RUN apk add --no-cache fonts-noto
+RUN apt-get update && apt-get install -y ffmpeg
+RUN apt-get install -y fonts-noto
 
 # Install n8n globally via npm
 RUN npm install -g n8n@latest
@@ -22,6 +23,6 @@ USER node
 # Start n8n when the container launches
 CMD ["n8n"]
 
-# Ensure the footage directory exists in the container and copy the files to it
-RUN mkdir -p /data/footage  # Create the destination directory in the container
+# Ensure the footage directory exists and copy the files into it
+RUN mkdir -p /data/footage
 COPY ./footage/data/footage /data/footage
