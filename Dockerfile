@@ -21,3 +21,5 @@ USER node
 
 # Start n8n when the container launches
 CMD ["n8n"]
+
+RUN apt-get update && apt-get install -y fonts-noto
