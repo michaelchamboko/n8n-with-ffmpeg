@@ -25,4 +25,6 @@ CMD ["n8n"]
 
 # Ensure the footage directory exists and copy the files into it
 RUN mkdir -p ${FOOTAGE_DIR}
+
+# Copy footage directory into container
 COPY ./footage/data/footage ${FOOTAGE_DIR}
